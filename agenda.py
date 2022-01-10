@@ -1,8 +1,8 @@
-from tkinter import *
-from tkinter import messagebox
+from tkinter import * # Inportamos el modulo de Tkinter para crear ventanas de escritorio.
+from tkinter import messagebox # Inportamos de Tkinter el modulo messagebox para utilizar mensajes dinamicos.
 from baseDatos import *
 
-# variables de la ventana
+# Variables de configuracion de la ventana
 alto = 560
 ancho = 620
 posx = 400
@@ -14,9 +14,11 @@ colorVentana = "blue"
 colorFondo = "blue"
 colorLetra = "white"
 
+
 def mostrarMensaje(titulo, mensaje):
     messagebox.showinfo(titulo,mensaje)
-    
+
+# Utilizamos un metodo paras limpiar las cajas de input.
 def limpiarDatos():
     nombre.set("")
     apellido.set("")
@@ -25,6 +27,7 @@ def limpiarDatos():
     ID.set("")
     text.delete(1.0,END)
 
+# Creamos el metodo para incertar datos. 
 def guardarDatos():
     crearTabla()
     if((nombre.get() == "") or (apellido.get() == "")):
@@ -35,6 +38,7 @@ def guardarDatos():
         insertar(datos)
         limpiarDatos()
 
+# Creamos el metodo para actulizar datos. 
 def actualizar():
     crearTabla()
     if(ID.get() == "") or (ID.get() == 0) or (nombre.get() == ""):
@@ -48,6 +52,7 @@ def actualizar():
         except:
             mostrarMensaje("Error","ID no encontrado")
             
+# Creamos el metodo para eliminar datos.            
 def eliminar():
     if(ID.get() == "") or (ID.get() == 0):
         mostrarMensaje("Error","Debes insertar un identificador 'ID'")
@@ -60,6 +65,7 @@ def eliminar():
         except:
             mostrarMensaje("Error","ID no encontrado")
 
+# Creamos el metodo para mostra datos. 
 def mostrar():
     listado = consultar()    
     text.delete(1.0,END)
@@ -80,7 +86,8 @@ def mostrar():
         text.insert(INSERT, "\t\t")
         text.insert(INSERT, email)
         text.insert(INSERT, "\n")
-        
+
+# Creamos el metodo para buscar datos. 
 def buscar():
     if((ID.get()=="") or (ID.get()==0)):
         mostrarMensaje("Error","Debes insertar un identificador 'ID'")

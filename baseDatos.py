@@ -1,11 +1,13 @@
-import sqlite3
-import os
+import sqlite3 # Inportamos el modulo de SQLite.
+import os # Inportamos el modulo Con las funciones el sistema operativo .
 
+#Establecemos la conexion con la abase de datos.
 def conectar():
     conexion = sqlite3.connect("agenda.db")
     cursor = conexion.cursor()
     return  conexion,cursor
 
+# Creamos la base de datos con las entidades. Si la base de datos no existe la crea.
 def crearTabla():
     conexion, cursor = conectar()
     sql = """
@@ -22,7 +24,8 @@ def crearTabla():
     else:
         print("No fue posible crear la tabla")
     conexion.close()
-    
+
+# Creramos el metodo para insertar datos.
 def insertar(datos):
     conexion, cursor = conectar()
     sql = """
@@ -35,6 +38,7 @@ def insertar(datos):
     conexion.commit()
     conexion.close()
     
+# Creramos el metodo para consultar o recuperar los datos.
 def consultar():
     conexion, cursor = conectar()
     sql= "SELECT id,Nombre,Apellido,Telefono,Email from agenda"
@@ -46,6 +50,7 @@ def consultar():
     conexion.close()
     return listado
 
+# Creramos el metodo para modificar los datos.
 def modificar(id,nombre,apellido,telefono,email):
     conexion, cursor = conectar()
     sql = "UPDATE agenda SET Nombre = '"+nombre+"',Apellido= '"+apellido+"',Telefono= '"+telefono+"',Email= '"+email+"' WHERE id ="+str(id)         
@@ -54,6 +59,7 @@ def modificar(id,nombre,apellido,telefono,email):
     conexion.commit()
     conexion.close()
 
+# Creramos el metodo para borrar datos.
 def borrar(ID):
     conexion, cursor = conectar()
     sql = "DELETE from agenda WHERE id="+str(ID)
@@ -62,13 +68,7 @@ def borrar(ID):
     conexion.commit()
     conexion.close()
     
-# def consultarId():
-#     conexion, cursor = conectar()
-#     cursor.execute("SELECT id,Nombre,Apellido,Telefono,mail from agenda")
-#     print(type(cursor))
-#     print(cursor)
-#     conexion.close()
-    
+# Creramos el metodo para borrar datos.   
 def contactoId(ID):
     conexion, cursor = conectar()
     sql="SELECT * from agenda WHERE id="+str(ID)
